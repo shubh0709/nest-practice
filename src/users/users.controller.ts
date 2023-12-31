@@ -14,6 +14,8 @@ import { UsersService } from './users.service';
 import { Users } from './users.entity';
 import { UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { CustomSerialize } from 'src/serializers/custom.serializer';
+import { UserDto } from './dtos/user.dto';
 @Controller('auth')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -23,7 +25,8 @@ export class UsersController {
   }
 
   @Get('/:id')
-  @UseInterceptors(ClassSerializerInterceptor)
+  // @UseInterceptors(ClassSerializerInterceptor)
+  @CustomSerialize(UserDto)
   findUser(@Param('id') id: string) {
     console.log('controller findUser id: ', id);
     const user = this.usersService.findOne(parseInt(id));
