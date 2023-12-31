@@ -23,7 +23,7 @@ export class UsersController {
   }
 
   @Get('/:id')
-  // @UseInterceptors(ClassSerializerInterceptor)
+  @UseInterceptors(ClassSerializerInterceptor)
   findUser(@Param('id') id: string) {
     console.log('controller findUser id: ', id);
     const user = this.usersService.findOne(parseInt(id));
